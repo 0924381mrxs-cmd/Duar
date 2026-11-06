@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوبر ماركت درة العبيدية | التسوق الإلكتروني</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        market: {
+                            green: '#16a34a',
+                            darkGreen: '#15803d',
+                            lightGreen: '#f0fdf4',
+                            yellow: '#eab308',
+                            darkYellow: '#ca8a04',
+                            cream: '#fefce8',
+                            dark: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .hero-pattern {
+            background-color: #15803d;
+            background-image: radial-gradient(#eab308 0.8px, transparent 0.8px), radial-gradient(#eab308 0.8px, #15803d 0.8px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-market-dark font-semibold text-white text-xs sm:text-sm py-2 px-4 border-b border-market-yellow/30">
+        <div class="container mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                <i class="fa-solid fa-location-dot text-market-yellow"></i>
+                <span>ولاية نهر النيل - بربر - العبيدية</span>
+            </div>
+            <div class="flex items-center gap-4 mx-auto sm:mx-0 font-sans">
+                <a href="https://wa.me/249914848670" target="_blank" class="hover:text-market-yellow transition flex items-center gap-1">
+                    <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
+                    <span>0914848670</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-market-green text-market-yellow flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-basket-shopping text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-market-dark leading-tight">
+                        درة العبيدية <span class="text-market-green text-sm block sm:inline font-bold">سوبر ماركت</span>
+                    </h1>
+                    <p class="text-[10px] text-gray-500 font-semibold">كل ما تحتاجه أسرتك في مكان واحد</p>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="ابحث عن مأكولات، زيوت، منظفات..." 
+                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl bg-slate-100 border border-slate-200 focus:outline-none focus:border-market-green transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+
+            <!-- Cart Trigger -->
+            <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-market-lightGreen text-market-darkGreen border border-market-green/30 hover:bg-market-green hover:text-white transition duration-300 shadow-sm flex items-center gap-2 font-bold text-sm">
+                <i class="fa-solid fa-cart-shopping text-lg"></i>
+                <span class="hidden sm:inline">السلة</span>
+                <span id="cartBadge" class="bg-market-yellow text-market-dark text-xs font-black w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+            </button>
+        </div>
+
+        <!-- Search Bar (Mobile) -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative">
+                <input type="text" id="mobileSearchInput" oninput="filterProductsMobile()" placeholder="ابحث عن منتج..." 
+                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl bg-slate-100 border border-slate-200 focus:outline-none focus:border-market-green transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative hero-pattern text-white py-10 md:py-16 px-4 border-b-4 border-market-yellow">
+        <div class="container mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="max-w-xl text-center md:text-right">
+                <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-market-yellow text-xs font-bold mb-3 border border-white/30">
+                    🛒 التسوق السهل والسريع في العبيدية
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black leading-tight mb-3">
+                    سوبر ماركت <span class="text-market-yellow">درة العبيدية</span> في خدمتكم
+                </h2>
+                <p class="text-slate-100 text-xs sm:text-base leading-relaxed mb-6 font-light">
+                    نوفر لكم أجود المواد الغذائية، المستلزمات المنزلية، والخضروات بأسعار مناسبة مع خدمة التوصيل المباشر عبر الواتساب.
+                </p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                    <a href="#catalog" class="bg-market-yellow hover:bg-market-darkYellow text-market-dark px-6 py-2.5 rounded-xl font-bold shadow-md transition flex items-center gap-2 text-sm">
+                        <span>تصفح المنتجات</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                    <a href="https://wa.me/249914848670" target="_blank" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                        <span>طلب مباشر واتساب</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Catalog Section -->
+    <main id="catalog" class="container mx-auto px-4 py-8 flex-grow">
+        
+        <!-- Filter Category Buttons -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+                <h3 class="text-xl sm:text-2xl font-black text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-store text-market-green"></i>
+                    الأقسام والمنتجات
+                </h3>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
+                <button onclick="filterCategory('all')" id="btn-all" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition bg-market-green text-white">الكل</button>
+                <button onclick="filterCategory('food')" id="btn-food" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition text-gray-600 hover:bg-slate-100">مواد غذائية</button>
+                <button onclick="filterCategory('drinks')" id="btn-drinks" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition text-gray-600 hover:bg-slate-100">مشروبات وألبان</button>
+                <button onclick="filterCategory('cleaning')" id="btn-cleaning" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition text-gray-600 hover:bg-slate-100">منظفات ورعاية</button>
+                <button onclick="filterCategory('baby supplies')" id="btn-baby supplies" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition text-gray-600 hover:bg-slate-100">مستلزمات أطفال</button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div class="col-span-full text-center py-16 text-gray-500">
+                <i class="fa-solid fa-spinner fa-spin text-3xl text-market-green mb-2"></i>
+                <p class="text-sm">جاري تحميل منتجات سوبر ماركت درة العبيدية من الجدول...</p>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fa-solid fa-box-open text-5xl text-gray-300 mb-3"></i>
+            <h4 class="text-base font-bold text-gray-600">لم نجد منتجات تطابق البحث!</h4>
+        </div>
+    </main>
+
+    <!-- Cart Drawer Modal -->
+    <div id="cartModal" class="fixed inset-0 z-50 overflow-hidden hidden transition-all duration-300">
+        <div onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+
+        <div class="fixed inset-y-0 left-0 max-w-full flex pl-0 sm:pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+                
+                <!-- Cart Header -->
+                <div class="p-4 bg-market-green text-white flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-market-yellow text-lg"></i>
+                        <h3 class="text-base font-bold">سلة المشتريات</h3>
+                        <span id="cartHeaderCount" class="bg-market-yellow text-market-dark text-xs font-bold px-2 py-0.5 rounded-full">0 منتجات</span>
+                    </div>
+                    <button onclick="toggleCart()" class="text-white hover:bg-white/10 p-1.5 rounded-lg">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-slate-100"></div>
+
+                <!-- Cart Footer -->
+                <div class="p-4 bg-slate-50 border-t border-slate-200">
+                    <div class="flex justify-between text-base font-black text-slate-800 mb-4">
+                        <span>الإجمالي الكلي:</span>
+                        <span id="cartTotal" class="text-market-green">0 SDG</span>
+                    </div>
+
+                    <button onclick="sendOrderWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-md transition">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>إرسال الطلب للواتساب</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-market-dark text-white border border-market-yellow/40 px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-green-400 text-base"></i>
+        <span id="toastMsg" class="text-xs font-semibold">تمت إضافة المنتج للسلة!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-market-dark text-slate-300 pt-8 pb-6 border-t-4 border-market-green">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-center md:text-right">
+            <div>
+                <h4 class="text-base font-bold text-market-yellow mb-2">سوبر ماركت درة العبيدية</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">توفير أجود الأصناف والمنتجات التموينية بأفضل الأسعار لخدمة أهلنا في العبيدية والقرى المجاورة.</p>
+            </div>
+            <div>
+                <h4 class="text-base font-bold text-market-yellow mb-2">التواصل والموقع</h4>
+                <p class="text-xs text-slate-400 mb-1"><i class="fa-solid fa-location-dot text-market-green ml-1"></i>ولاية نهر النيل - محلية بربر - العبيدية</p>
+                <p class="text-xs text-slate-400"><i class="fa-brands fa-whatsapp text-green-400 ml-1"></i>واتساب/هاتف: 0914848670</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 pt-4 border-t border-slate-800 text-center text-[11px] text-slate-500">
+            جميع الحقوق محفوظة &copy; 2026 - سوبر ماركت درة العبيدية
+        </div>
+    </footer>
+
+    <!-- JavaScript Integration -->
+    <script>
+        // معرّف جدول جوجل الخاص بك
+        const SHEET_ID = '10P-8YXCulR2KpeTZLeJYZOIU5-DA-rALJxfayXPg1UM';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+        let products = [];
+        let cart = [];
+        let currentCategory = 'all';
+
+        window.onload = function() {
+            fetchProductsFromSheet();
+            updateCartUI();
+        };
+
+        async function fetchProductsFromSheet() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+
+                products = rows.map((row, index) => ({
+                    id: row.c[0]?.v || index + 1,
+                    name: row.c[1]?.v || 'منتج',
+                    category: row.c[2]?.v ? row.c[2]?.v.toString().trim().toLowerCase() : 'all',
+                    price: Number(row.c[3]?.v) || 0,
+                    image: row.c[4]?.v || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400',
+                    desc: 'سوبر ماركت درة العبيدية'
+                }));
+
+                renderProducts(products);
+            } catch (e) {
+                console.error("خطأ في جلب البيانات من الجدول:", e);
+                document.getElementById('productsGrid').innerHTML = `
+                    <div class="col-span-full text-center py-16 text-red-600">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-2"></i>
+                        <p class="text-sm font-bold">يرجى التأكد من أن جدول جوجل منشور بصلاحية "أي شخص لديه الرابط يمكنه العرض".</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between";
+                card.innerHTML = `
+                    <div class="h-44 bg-slate-50 overflow-hidden relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm mb-1">${product.name}</h4>
+                            <p class="text-xs text-gray-500 line-clamp-1 mb-2">${product.desc}</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between my-2">
+                                <span class="text-xs text-gray-400 font-semibold">السعر:</span>
+                                <span class="text-sm font-black text-market-darkGreen">${product.price.toLocaleString()} <span class="text-[10px] font-normal">SDG</span></span>
+                            </div>
+                            <button onclick="addToCart('${product.id}')" class="w-full bg-market-lightGreen hover:bg-market-green text-market-darkGreen hover:text-white border border-market-green/30 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>إضافة للسلة</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition text-gray-600 hover:bg-slate-100";
+            });
+            const activeBtn = document.getElementById(`btn-${cat}`);
+            if(activeBtn) activeBtn.className = "cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition bg-market-green text-white";
+            applyFilters();
+        }
+
+        function filterProducts() { applyFilters(); }
+        function filterProductsMobile() { applyFilters(true); }
+
+        function applyFilters(isMobile = false) {
+            const query = (isMobile ? document.getElementById('mobileSearchInput').value : document.getElementById('searchInput').value).toLowerCase().trim();
+            let filtered = products;
+
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(p => p.category.includes(currentCategory));
+            }
+            if (query !== '') {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(query));
+            }
+            renderProducts(filtered);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id == productId);
+            const item = cart.find(i => i.id == productId);
+            if (item) item.qty += 1;
+            else cart.push({ ...product, qty: 1 });
+            updateCartUI();
+            showToast(`تمت إضافة "${product.name}"`);
+        }
+
+        function updateCartQty(productId, delta) {
+            const item = cart.find(i => i.id == productId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id != productId);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartHeaderCount = document.getElementById('cartHeaderCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            cartHeaderCount.innerText = `${totalItems} منتجات`;
+            cartTotal.innerText = `${totalPrice.toLocaleString()} SDG`;
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center py-8 text-xs text-gray-400">سلة التسوق فارغة حالياً</p>`;
+                return;
+            }
+
+            cart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "pt-2 flex items-center justify-between gap-2";
+                div.innerHTML = `
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-slate-800">${item.name}</h5>
+                        <span class="text-xs text-market-darkGreen font-extrabold">${(item.price * item.qty).toLocaleString()} SDG</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 rounded bg-slate-100 text-xs font-bold">-</button>
+                        <span class="text-xs font-bold px-1">${item.qty}</span>
+                        <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 rounded bg-slate-100 text-xs font-bold">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
+        }
+
+        function sendOrderWhatsApp() {
+            if (cart.length === 0) return alert("السلة فارغة!");
+            let msg = `*طلب جديد من سوبر ماركت درة العبيدية* 🛒\n\n`;
+            msg += `📍 *الموقع:* نهر النيل - العبيدية\n---------------------------------\n`;
+            cart.forEach((item, i) => {
+                msg += `${i + 1}. *${item.name}* (العدد: ${item.qty}) = ${(item.price * item.qty).toLocaleString()} SDG\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            msg += `---------------------------------\n💰 *الإجمالي:* ${total.toLocaleString()} SDG\n\nيرجى تأكيد إتاحة المنتجات والتوصيل.`;
+            window.open(`https://wa.me/249914848670?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
